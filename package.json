@@ -4,5 +4,8 @@
   "description": "use samples as templates",
   "main": "index.js",
   "author": "MVCDS",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.9.0"
+  }
 }

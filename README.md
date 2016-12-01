@@ -10,7 +10,7 @@ In a node project is common to have a folder structure where files follow some n
 
     sat from <template-name> <place>
 
-### WIP
+### Planned
 
     sat list
     sat from <template-name> <place> [<arguments>]

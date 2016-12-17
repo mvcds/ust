@@ -7,5 +7,17 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.9.0"
+  },
+  "devDependencies": {
+    "faker": "^3.1.0",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.6"
+  },
+  "scripts": {
+    "test": "mocha -c -S --recursive *.test.js",
+    "tdd": "npm run test -- -w"
+  },
+  "sat": {
+    "command": "sat-use.js"
   }
 }

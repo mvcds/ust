@@ -8,11 +8,11 @@ In a node project is common to have a folder structure where files follow some n
 
 ## WIP
 
-    sat from <template-name> <place>
+    sat use [sample] [location] [name]
 
 ### Planned
 
     sat list
-    sat from <template-name> <place> [<arguments>]
-    sat create <template-name>
-    sat delete <template-name>
+    sat use [sample] [location] [name] <arguments>
+    sat create [sample]
+    sat delete [sample]

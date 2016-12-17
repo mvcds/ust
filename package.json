@@ -2,7 +2,7 @@
   "name": "sat",
   "version": "0.0.0",
   "description": "use samples as templates",
-  "main": "index.js",
+  "main": "sat.js",
   "author": "MVCDS",
   "license": "MIT",
   "dependencies": {

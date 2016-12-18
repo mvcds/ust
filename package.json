@@ -15,7 +15,7 @@
   },
   "scripts": {
     "test": "mocha -c -S --recursive *.test.js",
-    "tdd": "npm run test -- -w"
+    "tdd": "yarn test -- -w"
   },
   "sat": {
     "command": "sat-use.js"

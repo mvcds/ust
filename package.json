@@ -20,6 +20,6 @@
     "tdd": "yarn test -- -w"
   },
   "sat": {
-    "command": "usage/use.js"
+    "usage": "usage/use.js"
   }
 }

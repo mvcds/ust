@@ -1,0 +1,6 @@
+{
+  "name": "UseSampleAsTemplate",
+  "description": "Gets a file and duplicate it on some path",
+  "private": true,
+  "main": "./UseSampleAsTemplate.js"
+}

@@ -33,7 +33,7 @@ describe('Use Sample As Template', () => {
         .returns(pathToWrite)
     }
 
-    before(() => UseSampleAsTemplate({ sample, location, name }, {
+    before(() => UseSampleAsTemplate(sample, location, name, {
       fs,
       pkg,
       path

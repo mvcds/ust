@@ -9,15 +9,16 @@
     "commander": "^2.9.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "faker": "^3.1.0",
     "mocha": "^3.2.0",
     "sinon": "^1.17.6"
   },
   "scripts": {
-    "test": "mocha -c -S --recursive *.test.js",
+    "test": "mocha -c -S --recursive ./**/*.test.js",
     "tdd": "yarn test -- -w"
   },
   "sat": {
-    "command": "sat-use.js"
+    "command": "usage/use.js"
   }
 }

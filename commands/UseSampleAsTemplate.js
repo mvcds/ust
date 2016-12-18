@@ -1,6 +1,6 @@
 const dependencies = {
   fs: require('fs'),
-  pkg: require('./package.json'),
+  pkg: require('../package.json'),
   path: require('path')
 }
 
@@ -21,7 +21,7 @@ const CreateFile = (location, name, injection) => {
   return (data) => fs.writeFile(pathToWrite, data, 'utf8')
 }
 
-module.exports = ({ sample, location, name }, injection) => {
+module.exports = (sample, location, name, injection) => {
   const { pkg } = Object.assign({}, dependencies, injection)
 
   return Promise.resolve(pkg.sat[sample])

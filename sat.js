@@ -1,6 +1,8 @@
 const package = require('./package.json')
 const program = require('commander')
 
+require('./usage')(program)
+
 program.version(package.version)
-  .command('use [sample] [location] [name]', 'Uses the sample as a template on location')
+  .usage('<command>')
   .parse(process.argv)

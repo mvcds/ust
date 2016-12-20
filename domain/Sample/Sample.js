@@ -1,12 +1,9 @@
 const dependencies = {
-  path: require('path'),
+  SampleFile: require('./SampleFile')
 }
 
-module.exports = (fileName, original, folder, injection) => {
-  const { path } = Object.assign({}, dependencies, injection)
+module.exports = (name, path, location, injection) => {
+  const { SampleFile } = Object.assign({}, dependencies, injection)
 
-  return {
-    original,
-    target: path.join(folder, fileName)
-  }
+  return SampleFile(name, path, location, injection)
 }

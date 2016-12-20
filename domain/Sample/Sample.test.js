@@ -12,22 +12,22 @@ const js = (fileName) => `${fileName}.js`
 describe('Sample', () => {
   describe('File', () => {
     const name = commerce.product()
-    const original = directory(js('original'))
+    const file = js('file')
+    const original = directory(file)
     const location = directory()
 
-    const target = 'new'
-
-    const path = {
-      join: mock().once()
-        .withExactArgs(location, name)
-        .returns(target)
-    }
+    const SampleFile = mock().once()
+      .withExactArgs(name, original, location, match.object)
+      .returns(file)
 
     const sample = Sample(name, original, location, {
-      path
+      SampleFile
     })
 
-    it('Has an original path', () => expect(sample.original).to.equal(original))
-    it('Has a target path', () => expect(sample.target).to.equal(target))
+    it('Creates a SampleFile', () => {
+      SampleFile.verify()
+
+      expect(sample).to.equal(file)
+    })
   })
 })

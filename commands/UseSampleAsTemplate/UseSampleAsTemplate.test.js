@@ -5,41 +5,46 @@ const { commerce, lorem, company, system } = require('faker')
 
 const UseSampleAsTemplate = require('./UseSampleAsTemplate')
 
+const directory = (paths = '') => join(...lorem.words().split(' '), paths)
+const js = (fileName) => `${fileName}.js`
+
 describe('Use Sample As Template', () => {
   describe('Duplicates a single file', () => {
     const sample = commerce.product()
     const name = company.bsNoun()
-    const location = join(...lorem.words().split(' '))
+    const location = directory()
 
-    const file = join(...lorem.words().split(' '), sample)
+    const file = directory(js(sample))
     const data = lorem.sentence()
-    const pathToWrite = join(location, name)
+    const target = 'new'
 
     const fs = {
       readFile: mock().once()
         .withExactArgs(file, 'utf8', match.func)
         .callsArgWithAsync(2, null, data),
       writeFile: mock().once()
-        .withExactArgs(pathToWrite, data, 'utf8')
+        .withExactArgs(target, data, 'utf8')
     }
     const pkg = {
       sat: {
         [sample]: file
       }
     }
-    const path = {
-      join: mock().once()
-        .withExactArgs(location, name)
-        .returns(pathToWrite)
-    }
+    const Sample = mock().once()
+      .withExactArgs(name, pkg.sat[sample], location, match.object)
+      .returns({
+        original: file,
+        target
+      })
 
     before(() => UseSampleAsTemplate(sample, location, name, {
       fs,
       pkg,
-      path
+      Sample
     }))
 
-    it('Read the sample file', () => fs.readFile.verify())
-    it('Create a new file after the sample', () => fs.writeFile.verify())
+    it('Creates a sample', () => Sample.verify())
+    it('Reads the sample file', () => fs.readFile.verify())
+    it('Creates a new file after the sample', () => fs.writeFile.verify())
   })
 })

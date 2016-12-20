@@ -1,0 +1,6 @@
+{
+  "name": "Sample",
+  "description": "Holds information about a sample",
+  "private": true,
+  "main": "./Sample.js"
+}

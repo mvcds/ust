@@ -1,7 +1,7 @@
 const dependencies = {
   fs: require('fs'),
   pkg: require('../../package.json'),
-  path: require('path')
+  Sample: require('../../domain/Sample')
 }
 
 const ReadFile = (injection) => {
@@ -14,21 +14,24 @@ const ReadFile = (injection) => {
   })
 }
 
-const WriteFile = (location, name, injection) => {
-  const { fs, path } = Object.assign({}, dependencies, injection)
-  const pathToWrite = path.join(location, name)
+const WriteFile = (target, injection) => {
+  const { fs } = Object.assign({}, dependencies, injection)
 
-  return (data) => fs.writeFile(pathToWrite, data, 'utf8')
+  return (data) => fs.writeFile(target, data, 'utf8')
 }
 
-const DuplicateFile = (location, name, injection) => {
-  return (data) => ReadFile(injection)(data)
-    .then(WriteFile(location, name, injection))
+const DuplicateFile = (injection) => {
+  return ({ original, target }) => ReadFile(injection)(original)
+    .then(WriteFile(target, injection))
 }
 
 module.exports = (sample, location, name, injection) => {
-  const { pkg } = Object.assign({}, dependencies, injection)
+  const { pkg, Sample } = Object.assign({}, dependencies, injection)
 
-  return Promise.resolve(pkg.sat[sample])
-    .then(DuplicateFile(location, name, injection))
+  const data = pkg.sat[sample]
+
+  const parsed = Sample(name, data, location, injection)
+
+  return Promise.resolve(parsed)
+    .then(DuplicateFile(injection))
 }

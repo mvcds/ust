@@ -1,0 +1,6 @@
+{
+  "name": "DuplicationService",
+  "description": "Duplicates a file",
+  "private": true,
+  "main": "./DuplicationService.js"
+}

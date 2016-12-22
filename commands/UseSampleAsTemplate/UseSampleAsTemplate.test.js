@@ -15,16 +15,11 @@ describe('Use Sample As Template', () => {
     const location = directory()
 
     const file = directory(js(sample))
-    const data = lorem.sentence()
     const target = 'new'
 
-    const fs = {
-      readFile: mock().once()
-        .withExactArgs(file, 'utf8', match.func)
-        .callsArgWithAsync(2, null, data),
-      writeFile: mock().once()
-        .withExactArgs(target, data, 'utf8')
-    }
+    const DuplicationService = mock().once()
+      .withExactArgs(file, target, match.object)
+      .returns(Promise.resolve())
     const pkg = {
       sat: {
         [sample]: file
@@ -38,13 +33,12 @@ describe('Use Sample As Template', () => {
       })
 
     before(() => UseSampleAsTemplate(sample, location, name, {
-      fs,
+      DuplicationService,
       pkg,
       Sample
     }))
 
-    it('Creates a sample', () => Sample.verify())
-    it('Reads the sample file', () => fs.readFile.verify())
-    it('Creates a new file after the sample', () => fs.writeFile.verify())
+    it('Reads the sample', () => Sample.verify())
+    it('Creates the file', () => DuplicationService.verify())
   })
 })

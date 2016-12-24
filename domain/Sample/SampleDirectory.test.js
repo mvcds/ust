@@ -1,13 +1,10 @@
 const { join, parse } = require('path')
 
 const { expect } = require('chai')
-const { commerce, lorem } = require('faker')
+const { commerce } = require('faker')
 const { mock, match } = require('sinon')
 
 const SampleDirectory = require('./SampleDirectory')
-
-const directory = (paths = '') => join(...lorem.words().split(' '), paths)
-const js = (fileName) => `${fileName}.js`
 
 describe('Sample Directory', () => {
   const name = commerce.product()

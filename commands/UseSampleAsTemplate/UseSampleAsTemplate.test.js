@@ -1,12 +1,7 @@
-const { join } = require('path')
-
 const { mock, match } = require('sinon')
-const { commerce, lorem, company, system } = require('faker')
+const { commerce, company } = require('faker')
 
 const UseSampleAsTemplate = require('./UseSampleAsTemplate')
-
-const directory = (paths = '') => join(...lorem.words().split(' '), paths)
-const js = (fileName) => `${fileName}.js`
 
 describe('Use Sample As Template', () => {
   describe('Duplicates a single file', () => {

@@ -1,12 +1,7 @@
-const { join } = require('path')
-
 const { mock, match } = require('sinon')
 
 const DuplicationService = require('./DuplicationService')
 const { commerce, lorem, company } = require('faker')
-
-const directory = (paths = '') => join(...lorem.words().split(' '), paths)
-const js = (fileName) => `${fileName}.js`
 
 describe('Duplication Service', () => {
   describe('Duplicates a file', () => {

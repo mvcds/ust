@@ -1,16 +1,12 @@
-const { join } = require('path')
-
 const { mock, match } = require('sinon')
 const { lorem, commerce } = require('faker')
 const { expect } = require('chai')
 
 const Usage = require('./index')
 
-const js = (fileName) => `${fileName}.js`
-
 //TODO: use sinon's onCall, it's not currently working
 describe('Usage', () => {
-  const location = join(...lorem.words().split(' '))
+  const location = directory(...lorem.words().split(' '))
   const files = [
     commerce.product(),
     commerce.color(),

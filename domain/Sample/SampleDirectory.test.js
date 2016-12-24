@@ -20,10 +20,12 @@ describe('Sample Directory', () => {
 
   const path = {
     join: mock().exactly(files.length + 1),
+    parse: mock().thrice()
+  }
+  const fs = {
     readdir: mock().once()
       .withExactArgs(original, 'utf8', match.func)
-      .callsArgWithAsync(2, null, files),
-    parse: mock().thrice()
+      .callsArgWithAsync(2, null, files)
   }
   const Sample = mock().thrice()
   const samples = files.map((file, i) => ({
@@ -50,10 +52,11 @@ describe('Sample Directory', () => {
 
   const sample = SampleDirectory(name, original, target, {
     path,
+    fs,
     Sample
   })
 
-  it('Reads the original directory', () => path.readdir.verify())
+  it('Reads the original directory', () => fs.readdir.verify())
   it('Creates sample files', () => {
     Sample.verify()
     path.parse.verify()

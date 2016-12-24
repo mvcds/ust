@@ -2,11 +2,11 @@ const dependencies = {
   fs: require('fs')
 }
 
-const ReadFile = (from_, injection) => {
+const ReadFile = (original, injection) => {
   const { fs } = Object.assign({}, dependencies, injection)
 
   return new Promise((resolve) => {
-    fs.readFile(from_, 'utf8', (err, data) => {
+    fs.readFile(original, 'utf8', (err, data) => {
       resolve(data)
     })
   })
@@ -18,7 +18,7 @@ const WriteFile = (to, injection) => {
   return (data) => fs.writeFile(to, data, 'utf8')
 }
 
-module.exports = (from_, to, injection) => {
-  return ReadFile(from_, injection)
+module.exports = (original, to, injection) => {
+  return ReadFile(original, injection)
     .then(WriteFile(to, injection))
 }

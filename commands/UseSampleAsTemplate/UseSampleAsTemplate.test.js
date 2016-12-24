@@ -11,6 +11,10 @@ describe('Use Sample As Template', () => {
 
     const file = directory(js(sample))
     const target = 'new'
+    const resultSample = {
+      original: file,
+      target
+    }
 
     const DuplicationService = mock().once()
       .withExactArgs(file, target, match.object)
@@ -22,18 +26,69 @@ describe('Use Sample As Template', () => {
     }
     const Sample = mock().once()
       .withExactArgs(name, pkg.sat[sample], location, match.object)
-      .returns({
-        original: file,
-        target
-      })
+      .returns(Promise.resolve(resultSample))
+    const SecureDirectoryService = mock().once()
+      .withExactArgs([resultSample], match.object)
+      .returns([resultSample])
 
     before(() => UseSampleAsTemplate(sample, location, name, {
       DuplicationService,
+      SecureDirectoryService,
       pkg,
       Sample
     }))
 
     it('Reads the sample', () => Sample.verify())
+    it('Is directory-safe', () => SecureDirectoryService.verify())
     it('Creates the file', () => DuplicationService.verify())
+  })
+
+  describe('Duplicates a whole folder', () => {
+    const sample = commerce.product()
+    const name = company.bsNoun()
+    const location = directory()
+    const files = [
+      js('file-1'),
+      js('file-2'),
+      js('file-2.test')
+    ]
+    const samples = []
+
+    const folder = directory(sample)
+
+    const DuplicationService = mock().thrice()
+    const pkg = {
+      sat: {
+        [sample]: folder
+      }
+    }
+    const Sample = mock().once()
+      .withExactArgs(name, pkg.sat[sample], location, match.object)
+      .returns(Promise.resolve(samples))
+    const SecureDirectoryService = mock().once()
+      .withExactArgs(samples, match.object)
+      .returns(samples)
+
+    files.forEach((file, i) => {
+      DuplicationService
+        .onCall(i)
+        .returns(Promise.resolve(file))
+
+      samples.push({
+        original: directory(file),
+        target: file
+      })
+    })
+
+    before(() => UseSampleAsTemplate(sample, location, name, {
+      DuplicationService,
+      SecureDirectoryService,
+      pkg,
+      Sample
+    }))
+
+    it('Reads the sample', () => Sample.verify())
+    it('Is directory-safe', () => SecureDirectoryService.verify())
+    it('Creates each file', () => DuplicationService.verify())
   })
 })

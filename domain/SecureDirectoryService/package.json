@@ -1,0 +1,6 @@
+{
+  "name": "SecureDirectoryService",
+  "description": "Secure a directory exists before start duplicating",
+  "private": true,
+  "main": "./SecureDirectoryService.js"
+}

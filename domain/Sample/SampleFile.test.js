@@ -17,8 +17,11 @@ describe('Sample File', () => {
       .returns(target)
   }
 
-  const sample = SampleFile(name, original, location, {
-    path
+  let sample
+  before(() => {
+    return SampleFile(name, original, location, {
+      path
+    }).then(s => sample = s)
   })
 
   it('Has an original path', () => expect(sample.original).to.equal(original))

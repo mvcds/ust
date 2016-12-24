@@ -1,13 +1,13 @@
 const dependencies = {
   path: require('path'),
-  Sample: require('./Sample')
+  fs: require('fs')
 }
 
 const ReadDirectory = (original, injection) => {
-  const { path } = Object.assign({}, dependencies, injection)
+  const { fs } = Object.assign({}, dependencies, injection)
 
   return new Promise((resolve) => {
-    path.readdir(original, 'utf8', (e, files) => resolve(files))
+    fs.readdir(original, 'utf8', (e, files) => resolve(files))
   })
 }
 
@@ -20,7 +20,10 @@ const ReadFiles = (original, target, injection) => {
 }
 
 const CreateSample = (original, target, injection) => {
-  const { path, Sample } = Object.assign({}, dependencies, injection)
+  const recursiveDependency = {
+    Sample: require('./Sample')
+  }
+  const { path, Sample } = Object.assign({}, dependencies, recursiveDependency, injection)
 
   return (file) => {
     const { name, ext } = path.parse(file)

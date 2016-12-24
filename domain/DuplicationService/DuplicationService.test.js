@@ -1,7 +1,9 @@
+const { join } = require('path')
+
 const { mock, match } = require('sinon')
+const { commerce, lorem, company } = require('faker')
 
 const DuplicationService = require('./DuplicationService')
-const { commerce, lorem, company } = require('faker')
 
 describe('Duplication Service', () => {
   describe('Duplicates a file', () => {
@@ -21,7 +23,7 @@ describe('Duplication Service', () => {
       fs
     })
 
-    it('Read a file', () => service.then(() => fs.readFile.verify()))
-    it('Write a file', () => service.then(() => fs.writeFile.verify()))
+    it('Reads a file', () => service.then(() => fs.readFile.verify()))
+    it('Writes a file', () => service.then(() => fs.writeFile.verify()))
   })
 })

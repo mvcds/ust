@@ -1,6 +1,6 @@
 {
   "name": "UseSampleAsTemplate",
-  "description": "Gets a file and duplicate it on some path",
+  "description": "Uses a package.json's sample as new files base",
   "private": true,
   "main": "./UseSampleAsTemplate.js"
 }

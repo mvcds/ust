@@ -5,8 +5,8 @@ const dependencies = {
 module.exports = (fileName, original, folder, injection) => {
   const { path } = Object.assign({}, dependencies, injection)
 
-  return {
+  return Promise.resolve({
     original,
     target: path.join(folder, fileName)
-  }
+  })
 }

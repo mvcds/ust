@@ -16,7 +16,7 @@
     "sinon": "^1.17.6"
   },
   "scripts": {
-    "test": "mocha -c -S --recursive ./**/*.test.js --require tests/support.js",
+    "test": "mocha -c -S --recursive commands domain usage --require tests/support.js",
     "tdd": "yarn test -- -w"
   },
   "sat": {

@@ -1,5 +1,5 @@
 {
-  "name": "sat",
+  "name": "@marvinc.silva/sat",
   "version": "0.0.0",
   "description": "use samples as templates",
   "main": "sat.js",

@@ -1,3 +1,5 @@
+const { join } = require('path')
+
 const { mock, match } = require('sinon')
 const { commerce, company } = require('faker')
 
@@ -8,6 +10,12 @@ describe('Use Sample As Template', () => {
     const sample = commerce.product()
     const name = company.bsNoun()
     const location = directory()
+    const pkgPath = directory()
+    const process_ = {
+      env: {
+        PWD: directory('PWD')
+      }
+    }
 
     const file = directory(js(sample))
     const target = 'new'
@@ -24,9 +32,17 @@ describe('Use Sample As Template', () => {
         [sample]: file
       }
     }
+    const require = mock().once()
+      .withExactArgs(join(process_.env.PWD, 'package.json'))
+      .returns(pkg)
     const Sample = mock().once()
       .withExactArgs(name, pkg.sat[sample], location, match.object)
       .returns(Promise.resolve(resultSample))
+    const path = {
+      join: mock().once()
+        .withExactArgs(process_.env.PWD, 'package.json')
+        .returns(join(process_.env.PWD, 'package.json'))
+    }
     const SecureDirectoryService = mock().once()
       .withExactArgs([resultSample], match.object)
       .returns([resultSample])
@@ -34,10 +50,14 @@ describe('Use Sample As Template', () => {
     before(() => UseSampleAsTemplate(sample, location, name, {
       DuplicationService,
       SecureDirectoryService,
-      pkg,
-      Sample
+      Sample,
+      path,
+      require,
+      process: process_
     }))
 
+    it('Gets the package absolute path', () => path.join.verify())
+    it('Requires the current package', () => require.verify())
     it('Reads the sample', () => Sample.verify())
     it('Is directory-safe', () => SecureDirectoryService.verify())
     it('Creates the file', () => DuplicationService.verify())
@@ -47,6 +67,12 @@ describe('Use Sample As Template', () => {
     const sample = commerce.product()
     const name = company.bsNoun()
     const location = directory()
+    const pkgPath = directory()
+    const process_ = {
+      env: {
+        PWD: directory('PWD')
+      }
+    }
     const files = [
       js('file-1'),
       js('file-2'),
@@ -62,12 +88,21 @@ describe('Use Sample As Template', () => {
         [sample]: folder
       }
     }
+    const require = mock().once()
+      .withExactArgs(join(process_.env.PWD, 'package.json'))
+      .returns(pkg)
     const Sample = mock().once()
       .withExactArgs(name, pkg.sat[sample], location, match.object)
       .returns(Promise.resolve(samples))
+    const path = {
+      join: mock().once()
+        .withExactArgs(process_.env.PWD, 'package.json')
+        .returns(join(process_.env.PWD, 'package.json'))
+    }
     const SecureDirectoryService = mock().once()
       .withExactArgs(samples, match.object)
       .returns(samples)
+
 
     files.forEach((file, i) => {
       DuplicationService
@@ -83,10 +118,14 @@ describe('Use Sample As Template', () => {
     before(() => UseSampleAsTemplate(sample, location, name, {
       DuplicationService,
       SecureDirectoryService,
-      pkg,
-      Sample
+      Sample,
+      path,
+      require,
+      process: process_
     }))
 
+    it('Gets the package absolute path', () => path.join.verify())
+    it('Requires the current package', () => require.verify())
     it('Reads the sample', () => Sample.verify())
     it('Is directory-safe', () => SecureDirectoryService.verify())
     it('Creates each file', () => DuplicationService.verify())

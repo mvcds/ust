@@ -22,5 +22,8 @@
   "sat": {
     "usage": "usage/use.js",
     "command": "commands/UseSampleAsTemplate"
+  },
+  "bin": {
+    "sat": "./sat.js"
   }
 }

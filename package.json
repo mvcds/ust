@@ -25,5 +25,9 @@
   },
   "bin": {
     "sat": "./sat.js"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/mvcds/sat.git"
   }
 }

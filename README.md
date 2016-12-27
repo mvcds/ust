@@ -16,6 +16,12 @@ In this case you'll need to refer to the bin folder
 
     $ node_modules/.bin/sat --version
 
+## WIP
+
+This project is a work in progess, therefore, it only worries about happy scenarios, so there aren't any exception handling and somethings will change for sure.
+
+We welcome suggestions as issues on github.
+
 ## How to start using it
 
 On your project's `package.json` file create an object `sat`, its keys will be considered as 'the name of your samples', and the value the sample itself.

@@ -1,0 +1,6 @@
+{
+  "name": "ListPackageSamples",
+  "description": "Reads the package.json's samples",
+  "private": true,
+  "main": "./ListPackageSamples.js"
+}

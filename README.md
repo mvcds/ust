@@ -27,13 +27,15 @@ On your project's `package.json` file create an object `sat`, its keys will be c
 
 ## Commands
 
-## WIP
+To duplicate a sample use:
 
     sat use [sample] [location] [name]
 
-### Planned
+You can list all commands from the command line with:
 
     sat list
-    sat use [sample] [location] [name] <arguments>
+
+### Planned
+
     sat create [sample]
     sat delete [sample]

@@ -1,6 +1,6 @@
 {
   "name": "@marvinc.silva/sat",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "use samples as templates",
   "main": "sat.js",
   "author": "MVCDS",

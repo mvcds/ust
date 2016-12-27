@@ -16,6 +16,15 @@ In this case you'll need to refer to the bin folder
 
     $ node_modules/.bin/sat --version
 
+## How to start using it
+
+On your project's `package.json` file create an object `sat`, its keys will be considered as 'the name of your samples', and the value the sample itself.
+
+      "sat": {
+        "sampleA": "path\to\file.js",
+        "sampleB": path\to\directory
+      }
+
 ## Commands
 
 ## WIP

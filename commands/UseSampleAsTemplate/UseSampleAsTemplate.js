@@ -2,9 +2,7 @@ const dependencies = {
   DuplicationService: require('../../domain/DuplicationService'),
   SecureDirectoryService: require('../../domain/SecureDirectoryService'),
   Sample: require('../../domain/Sample'),
-  path: require('path'),
-  process,
-  require
+  GetPackageService: require('../../domain/GetPackageService')
 }
 
 const CreateFromSample = (injection) => {
@@ -15,20 +13,10 @@ const CreateFromSample = (injection) => {
 
 const AsSampleArray = (result) => result.length ? result : [result]
 
-const getSample = (sample, injection) => {
-  const { path, process, require } = Object.assign({}, dependencies, injection)
-
-  const pkgPath = path.join(process.env.PWD, 'package.json')
-
-  const pkg = require(pkgPath)
-
-  return pkg.sat[sample]
-}
-
 module.exports = (sample, location, name, injection) => {
-  const { Sample, SecureDirectoryService } = Object.assign({}, dependencies, injection)
+  const { Sample, SecureDirectoryService, GetPackageService } = Object.assign({}, dependencies, injection)
 
-  const data = getSample(sample, injection)
+  const data = GetPackageService().sat[sample]
 
   return Sample(name, data, location, injection)
     .then(AsSampleArray)

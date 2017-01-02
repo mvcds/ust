@@ -1,5 +1,3 @@
-const { join } = require('path')
-
 const { mock, match } = require('sinon')
 const { company } = require('faker')
 

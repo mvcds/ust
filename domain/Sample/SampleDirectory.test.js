@@ -1,4 +1,4 @@
-const { join, parse } = require('path')
+const { parse } = require('path')
 
 const { expect } = require('chai')
 const { commerce } = require('faker')

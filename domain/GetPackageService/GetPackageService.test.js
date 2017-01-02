@@ -1,5 +1,3 @@
-const { join } = require('path')
-
 const { mock } = require('sinon')
 const { expect } = require('chai')
 const { lorem } = require('faker')

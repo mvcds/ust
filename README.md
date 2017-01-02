@@ -35,7 +35,7 @@ On your project's `package.json` file create an object `sat`, its keys will be c
 
 To duplicate a sample use:
 
-    sat use [sample] [location] [name]
+    sat use [sample] [name]
 
 You can list all commands from the command line with:
 

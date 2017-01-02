@@ -1,15 +1,17 @@
 const dependencies = {
   fs: require('fs'),
   SampleFile: require('./SampleFile'),
-  SampleDirectory: require('./SampleDirectory')
+  SampleDirectory: require('./SampleDirectory'),
+  path: require('path')
 }
 
-module.exports = (name, path, location, injection) => {
-  const { SampleFile, fs, SampleDirectory } = Object.assign({}, dependencies, injection)
+module.exports = (name, original, injection) => {
+  const { fs, path, SampleFile, SampleDirectory, location } = Object.assign({}, dependencies, injection)
 
-  const stat = fs.lstatSync(path)
+  const stat = fs.lstatSync(original)
+  const target = location || path.parse(original).dir
 
   const type = stat.isFile() ? SampleFile : SampleDirectory
 
-  return type(name, path, location, injection)
+  return type(name, original, target, injection)
 }

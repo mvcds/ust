@@ -19,7 +19,7 @@ const ReadFiles = (original, target, injection) => {
   }
 }
 
-const CreateSample = (original, target, injection) => {
+const CreateSample = (original, location, injection) => {
   const recursiveDependency = {
     Sample: require('./Sample')
   }
@@ -30,8 +30,9 @@ const CreateSample = (original, target, injection) => {
     const fileName = name + ext
 
     const originalPath = path.join(original, fileName)
+    const withTarget = Object.assign({}, injection, { location })
 
-    const sample = Sample(fileName, originalPath, target, injection)
+    const sample = Sample(fileName, originalPath, withTarget)
 
     return Promise.resolve(sample)
   }

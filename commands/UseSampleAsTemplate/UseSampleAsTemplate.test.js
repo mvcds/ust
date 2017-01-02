@@ -7,7 +7,6 @@ describe('Use Sample As Template', () => {
   describe('Duplicates a single file', () => {
     const sample = commerce.product()
     const name = company.bsNoun()
-    const location = directory()
 
     const file = directory(js(sample))
     const target = 'new'
@@ -25,7 +24,7 @@ describe('Use Sample As Template', () => {
       }
     }
     const Sample = mock().once()
-      .withExactArgs(name, pkg.sat[sample], location, match.object)
+      .withExactArgs(name, pkg.sat[sample], match.object)
       .returns(Promise.resolve(resultSample))
     const SecureDirectoryService = mock().once()
       .withExactArgs([resultSample], match.object)
@@ -34,7 +33,7 @@ describe('Use Sample As Template', () => {
       .withExactArgs(match.object)
       .returns(pkg)
 
-    before(() => UseSampleAsTemplate(sample, location, name, {
+    before(() => UseSampleAsTemplate(sample, name, {
       DuplicationService,
       SecureDirectoryService,
       Sample,
@@ -50,7 +49,6 @@ describe('Use Sample As Template', () => {
   describe('Duplicates a whole folder', () => {
     const sample = commerce.product()
     const name = company.bsNoun()
-    const location = directory()
     const pkgPath = directory()
     const files = [
       js('file-1'),
@@ -68,7 +66,7 @@ describe('Use Sample As Template', () => {
       }
     }
     const Sample = mock().once()
-      .withExactArgs(name, pkg.sat[sample], location, match.object)
+      .withExactArgs(name, pkg.sat[sample], match.object)
       .returns(Promise.resolve(samples))
     const SecureDirectoryService = mock().once()
       .withExactArgs(samples, match.object)
@@ -87,7 +85,7 @@ describe('Use Sample As Template', () => {
       })
     })
 
-    before(() => UseSampleAsTemplate(sample, location, name, {
+    before(() => UseSampleAsTemplate(sample, name, {
       DuplicationService,
       SecureDirectoryService,
       Sample,

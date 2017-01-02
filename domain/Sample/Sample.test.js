@@ -21,13 +21,20 @@ describe('Sample', () => {
     const SampleFile = mock().once()
       .withExactArgs(name, original, location, match.object)
       .returns(file)
+    const path = {
+      parse: mock().once()
+        .withExactArgs(original)
+        .returns({ dir: location })
+    }
 
-    const sample = Sample(name, original, location, {
+    const sample = Sample(name, original, {
       SampleFile,
-      fs
+      fs,
+      path
     })
 
-    it('Identifies a file', () => fs.lstatSync.verify())
+    it('Identifies the sample as a file', () => fs.lstatSync.verify())
+    it('Gets the locaction', () => path.parse.verify())
     it('Creates a SampleFile', () => {
       SampleFile.verify()
 
@@ -41,7 +48,6 @@ describe('Sample', () => {
     const location = directory()
     const folder = {}
 
-    const SampleFile = mock().never()
     const fs = {
       lstatSync: mock().once()
         .withExactArgs(original)
@@ -52,14 +58,20 @@ describe('Sample', () => {
     const SampleDirectory = mock().once()
       .withExactArgs(name, original, location, match.object)
       .returns(folder)
+    const path = {
+      parse: mock().once()
+        .withExactArgs(original)
+        .returns({ dir: location })
+    }
 
-    const sample = Sample(name, original, location, {
-      SampleFile,
+    const sample = Sample(name, original, {
       SampleDirectory,
-      fs
+      fs,
+      path
     })
 
-    it('Identifies a directory', () => fs.lstatSync.verify())
+    it('Identifies the sample as a directory', () => fs.lstatSync.verify())
+    it('Gets the locaction', () => path.parse.verify())
     it('Creates a SampleDirectory', () => {
       SampleDirectory.verify()
 

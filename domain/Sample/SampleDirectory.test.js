@@ -66,7 +66,7 @@ describe('Sample Directory', () => {
 
       expect(args[0]).to.equal(file)
       expect(args[1]).to.equal(join(original, file))
-      expect(args[2]).to.equal(join(target, name))
+      expect(args[2].location).to.equal(join(target, name))
     })
 
     return sample.then(data => {

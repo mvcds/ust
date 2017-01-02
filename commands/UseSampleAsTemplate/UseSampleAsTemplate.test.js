@@ -31,6 +31,7 @@ describe('Use Sample As Template', () => {
       .withExactArgs([resultSample], match.object)
       .returns([resultSample])
     const GetPackageService = mock().once()
+      .withExactArgs(match.object)
       .returns(pkg)
 
     before(() => UseSampleAsTemplate(sample, location, name, {

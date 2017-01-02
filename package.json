@@ -21,7 +21,8 @@
   },
   "sat": {
     "usage": "usage/use.js",
-    "command": "commands/UseSampleAsTemplate"
+    "command": "commands/UseSampleAsTemplate",
+    "domain": "domain/DuplicationService"
   },
   "bin": {
     "sat": "./sat.js"

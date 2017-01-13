@@ -8,17 +8,17 @@ describe('Get Package Service', () => {
   const pkg = lorem.word()
   const process_ = {
     env: {
-      PWD: directory('PWD')
+      CMDER_START: directory('PWD')
     }
   }
 
   const path = {
     join: mock().once()
-      .withExactArgs(process_.env.PWD, 'package.json')
-      .returns(join(process_.env.PWD, 'package.json'))
+      .withExactArgs(process_.env.CMDER_START, 'package.json')
+      .returns(join(process_.env.CMDER_START, 'package.json'))
   }
   const require = mock().once()
-    .withExactArgs(join(process_.env.PWD, 'package.json'))
+    .withExactArgs(join(process_.env.CMDER_START, 'package.json'))
     .returns(pkg)
 
   const result = GetPackageService({

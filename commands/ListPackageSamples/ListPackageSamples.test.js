@@ -1,4 +1,4 @@
-const { mock } = require('sinon')
+const { mock, match } = require('sinon')
 const { expect } = require('chai')
 
 const ListPackageSamples = require('./ListPackageSamples')
@@ -12,8 +12,8 @@ describe('List Package Samples', () => {
       }
     }
 
-    const require = mock().once()
-      .withExactArgs('../../package.json')
+    const GetPackageService = mock().once()
+      .withExactArgs(match.object)
       .returns(pkg)
     const colors = {
       yellow: mock().twice()
@@ -21,12 +21,12 @@ describe('List Package Samples', () => {
     const log = mock().twice()
 
     ListPackageSamples({
-      require,
+      GetPackageService,
       colors,
       log
     })
 
-    it('Reads the package', () => require.verify())
+    it('Reads the package', () => GetPackageService.verify())
     it('Colours the key', () => {
       const { yellow } = colors
 

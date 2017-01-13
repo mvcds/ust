@@ -1,13 +1,13 @@
 const dependencies = {
-  require,
+  GetPackageService: require('../../domain/GetPackageService'),
   log: console.log,
   colors: require('colors')
 }
 
 module.exports = (injection) => {
-  const { require, log, colors } = Object.assign({}, dependencies, injection)
+  const { GetPackageService, log, colors } = Object.assign({}, dependencies, injection)
 
-  const { sat } = require('../../package.json')
+  const { sat } = GetPackageService(injection)
 
   Object.keys(sat).forEach((key) => {
     log(colors.yellow(key))

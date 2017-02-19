@@ -6,28 +6,28 @@ const Sample = require('./Sample')
 
 describe('Sample', () => {
   describe('File', () => {
-    const name = commerce.product()
+    const resultName = commerce.product()
     const file = js('file')
-    const original = directory(file)
+    const pathToSample = directory(file)
     const location = directory()
 
     const fs = {
       lstatSync: mock().once()
-        .withExactArgs(original)
+        .withExactArgs(pathToSample)
         .returns({
           isFile: () => true
         })
     }
     const SampleFile = mock().once()
-      .withExactArgs(name, original, location, match.object)
+      .withExactArgs(resultName, pathToSample, location, match.object)
       .returns(file)
     const path = {
       parse: mock().once()
-        .withExactArgs(original)
+        .withExactArgs(pathToSample)
         .returns({ dir: location })
     }
 
-    const sample = Sample(name, original, {
+    const sample = Sample(resultName, pathToSample, {
       SampleFile,
       fs,
       path
@@ -43,28 +43,28 @@ describe('Sample', () => {
   })
 
   describe('Directory', () => {
-    const name = commerce.product()
-    const original = directory()
+    const resultName = commerce.product()
+    const pathToSample = directory()
     const location = directory()
     const folder = {}
 
     const fs = {
       lstatSync: mock().once()
-        .withExactArgs(original)
+        .withExactArgs(pathToSample)
         .returns({
           isFile: () => false
         })
     }
     const SampleDirectory = mock().once()
-      .withExactArgs(name, original, location, match.object)
+      .withExactArgs(resultName, pathToSample, location, match.object)
       .returns(folder)
     const path = {
       parse: mock().once()
-        .withExactArgs(original)
+        .withExactArgs(pathToSample)
         .returns({ dir: location })
     }
 
-    const sample = Sample(name, original, {
+    const sample = Sample(resultName, pathToSample, {
       SampleDirectory,
       fs,
       path

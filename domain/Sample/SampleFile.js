@@ -2,11 +2,11 @@ const dependencies = {
   path: require('path'),
 }
 
-module.exports = (fileName, original, folder, injection) => {
+module.exports = (resultFileName, samplePath, resultFileFolder, injection) => {
   const { path } = Object.assign({}, dependencies, injection)
 
   return Promise.resolve({
-    original,
-    target: path.join(folder, fileName)
+    original: samplePath,
+    target: path.join(resultFileFolder, resultFileName)
   })
 }

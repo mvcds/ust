@@ -3,46 +3,55 @@ const dependencies = {
   fs: require('fs')
 }
 
-const ReadDirectory = (original, injection) => {
+const ReadDirectory = (samplePath, injection) => {
   const { fs } = Object.assign({}, dependencies, injection)
 
   return new Promise((resolve) => {
-    fs.readdir(original, 'utf8', (e, files) => resolve(files))
+    fs.readdir(samplePath, 'utf8', (e, files) => resolve(files))
   })
 }
 
-const ReadFiles = (original, target, injection) => {
-  return (files) => {
-    const samples = files.map(CreateSample(original, target, injection))
+const ReadFiles = (samplePath, resultFileFolder, resultFolderName, injection) => (files) => {
+  const samples = files.map(CreateSample(samplePath, resultFileFolder, resultFolderName, injection))
 
-    return Promise.all(samples)
-  }
+  return Promise.all(samples)
 }
 
-const CreateSample = (original, location, injection) => {
+const CreateSample = (samplePath, resultFileFolder, resultFolderName, injection) => {
   const recursiveDependency = {
     Sample: require('./Sample')
   }
   const { path, Sample } = Object.assign({}, dependencies, recursiveDependency, injection)
+  const location = path.join(resultFileFolder, resultFolderName)
+
+  const { base } = path.parse(samplePath)
 
   return (file) => {
     const { name, ext } = path.parse(file)
-    const fileName = name + ext
+    const sampleName = name + ext
+    const resultName = GetResultName(base, sampleName, resultFolderName)
 
-    const originalPath = path.join(original, fileName)
+    const originalPath = path.join(samplePath, sampleName)
     const withTarget = Object.assign({}, injection, { location })
 
-    const sample = Sample(fileName, originalPath, withTarget)
+    const sample = Sample(resultName, originalPath, withTarget)
 
     return Promise.resolve(sample)
   }
 }
 
-module.exports = (folderName, original, folderPath, injection) => {
+const GetResultName = (base, sampleName, resultFileFolder) => {
+  const parts = sampleName.split('.')
+
+  if (parts[0] !== base) return sampleName
+
+  parts[0] = resultFileFolder
+  return parts.join('.')
+}
+
+module.exports = (resultFolderName, samplePath, resultFileFolder, injection) => {
   const { path } = Object.assign({}, dependencies, injection)
 
-  const target = path.join(folderPath, folderName)
-
-  return ReadDirectory(original, injection)
-    .then(ReadFiles(original, target, injection))
+  return ReadDirectory(samplePath, injection)
+    .then(ReadFiles(samplePath, resultFileFolder, resultFolderName, injection))
 }

@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "mocha -c -S --recursive commands domain usage --require tests/support.js",
-    "tdd": "yarn test -- -w"
+    "tdd": "yarn test -- -w --reporter min"
   },
   "ust": {
     "usage": "usage/use.js",

@@ -7,16 +7,16 @@ const { mock, match } = require('sinon')
 const SampleDirectory = require('./SampleDirectory')
 
 describe('Sample Directory', () => {
-  const name = commerce.product()
-  const original = directory('original')
-  const target = directory('target')
+  const resultFolderName = commerce.product()
+  const samplePath = directory('original')
+  const resultFileFolder = directory('target')
   const files = [
     js('file-1'),
     js('file-2'),
     js('file-2.test')
   ]
 
-  const pathToWrite = join(target, name)
+  const pathToWrite = join(resultFileFolder, resultFolderName)
 
   const path = {
     join: mock().exactly(files.length + 1),
@@ -24,13 +24,13 @@ describe('Sample Directory', () => {
   }
   const fs = {
     readdir: mock().once()
-      .withExactArgs(original, 'utf8', match.func)
+      .withExactArgs(samplePath, 'utf8', match.func)
       .callsArgWithAsync(2, null, files)
   }
   const Sample = mock().thrice()
   const samples = files.map((file, i) => ({
-    original: join(original, file),
-    target: join(target, file)
+    original: join(samplePath, file),
+    target: join(resultFileFolder, file)
   }))
 
   path.join
@@ -50,7 +50,7 @@ describe('Sample Directory', () => {
       .returns(samples[i])
   })
 
-  const sample = SampleDirectory(name, original, target, {
+  const sample = SampleDirectory(resultFolderName, samplePath, resultFileFolder, {
     path,
     fs,
     Sample
@@ -65,8 +65,8 @@ describe('Sample Directory', () => {
       const args = Sample.args[i]
 
       expect(args[0]).to.equal(file)
-      expect(args[1]).to.equal(join(original, file))
-      expect(args[2].location).to.equal(join(target, name))
+      expect(args[1]).to.equal(join(samplePath, file))
+      expect(args[2].location).to.equal(join(resultFileFolder, resultFolderName))
     })
 
     return sample.then(data => {

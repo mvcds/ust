@@ -3,23 +3,23 @@ const dependencies = {
   fs: require('fs')
 }
 
-const ReadDirectory = (original, injection) => {
+const ReadDirectory = (samplePath, injection) => {
   const { fs } = Object.assign({}, dependencies, injection)
 
   return new Promise((resolve) => {
-    fs.readdir(original, 'utf8', (e, files) => resolve(files))
+    fs.readdir(samplePath, 'utf8', (e, files) => resolve(files))
   })
 }
 
-const ReadFiles = (original, target, injection) => {
+const ReadFiles = (samplePath, resultPath, injection) => {
   return (files) => {
-    const samples = files.map(CreateSample(original, target, injection))
+    const samples = files.map(CreateSample(samplePath, resultPath, injection))
 
     return Promise.all(samples)
   }
 }
 
-const CreateSample = (original, location, injection) => {
+const CreateSample = (samplePath, resultPath, injection) => {
   const recursiveDependency = {
     Sample: require('./Sample')
   }
@@ -29,8 +29,8 @@ const CreateSample = (original, location, injection) => {
     const { name, ext } = path.parse(file)
     const fileName = name + ext
 
-    const originalPath = path.join(original, fileName)
-    const withTarget = Object.assign({}, injection, { location })
+    const originalPath = path.join(samplePath, fileName)
+    const withTarget = Object.assign({}, injection, { location: resultPath })
 
     const sample = Sample(fileName, originalPath, withTarget)
 
@@ -38,11 +38,11 @@ const CreateSample = (original, location, injection) => {
   }
 }
 
-module.exports = (folderName, original, folderPath, injection) => {
+module.exports = (resultFolderName, samplePath, resultFileFolder, injection) => {
   const { path } = Object.assign({}, dependencies, injection)
 
-  const target = path.join(folderPath, folderName)
+  const resultPath = path.join(resultFileFolder, resultFolderName)
 
-  return ReadDirectory(original, injection)
-    .then(ReadFiles(original, target, injection))
+  return ReadDirectory(samplePath, injection)
+    .then(ReadFiles(samplePath, resultPath, injection))
 }

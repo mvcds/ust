@@ -1,5 +1,7 @@
 # Use Samples as Templates
 
+[![Build Status](https://travis-ci.org/mvcds/ust.svg?branch=setup-travis)](https://travis-ci.org/mvcds/ust)
+
 In a node project is common to have a folder structure where files follow some naming convention, to avoid copying and pasting on the folder's name and files you could type `ust` to use samples as templates
 
     $ yarn global add ust

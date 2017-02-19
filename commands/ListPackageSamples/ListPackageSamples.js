@@ -7,9 +7,9 @@ const dependencies = {
 module.exports = (injection) => {
   const { require, log, colors } = Object.assign({}, dependencies, injection)
 
-  const { sat } = require('../../package.json')
+  const { ust } = require('../../package.json')
 
-  Object.keys(sat).forEach((key) => {
+  Object.keys(ust).forEach((key) => {
     log(colors.yellow(key))
   })
 }

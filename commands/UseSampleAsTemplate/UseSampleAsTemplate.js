@@ -16,7 +16,7 @@ const AsSampleArray = (result) => result.length ? result : [result]
 module.exports = (sample, name, injection) => {
   const { Sample, SecureDirectoryService, GetPackageService } = Object.assign({}, dependencies, injection)
 
-  const path = GetPackageService(injection).sat[sample]
+  const path = GetPackageService(injection).ust[sample]
 
   return Sample(name, path, injection)
     .then(AsSampleArray)

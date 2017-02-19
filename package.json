@@ -1,8 +1,8 @@
 {
-  "name": "@marvinc.silva/sat",
+  "name": "ust",
   "version": "1.0.0",
   "description": "use samples as templates",
-  "main": "sat.js",
+  "main": "ust.js",
   "author": "MVCDS",
   "license": "MIT",
   "dependencies": {
@@ -19,16 +19,16 @@
     "test": "mocha -c -S --recursive commands domain usage --require tests/support.js",
     "tdd": "yarn test -- -w"
   },
-  "sat": {
+  "ust": {
     "usage": "usage/use.js",
     "command": "commands/UseSampleAsTemplate",
     "domain": "domain/DuplicationService"
   },
   "bin": {
-    "sat": "./sat.js"
+    "ust": "./ust.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mvcds/sat.git"
+    "url": "https://github.com/mvcds/ust.git"
   }
 }

@@ -1,20 +1,20 @@
-# Samples As Templates
+# Use Samples as Templates
 
-In a node project is common to have a folder structure where files follow some naming convention, to avoid copying and pasting on the folder's name and files you could type `sat` to use samples as templates
+In a node project is common to have a folder structure where files follow some naming convention, to avoid copying and pasting on the folder's name and files you could type `ust` to use samples as templates
 
-    $ yarn global add @marvinc.silva/sat
+    $ yarn global add ust
 
 Test it by checking the version
 
-    $ sat --version
+    $ ust --version
 
 You can also install it on the current project, for developers only.
 
-    $ yarn add @marvinc.silva/sat --dev
+    $ yarn add @marvinc.silva/ust --dev
 
 In this case you'll need to refer to the bin folder
 
-    $ node_modules/.bin/sat --version
+    $ node_modules/.bin/ust --version
 
 ## WIP
 
@@ -24,9 +24,9 @@ We welcome suggestions as issues on github.
 
 ## How to start using it
 
-On your project's `package.json` file create an object `sat`, its keys will be considered as 'the name of your samples', and the value the sample itself.
+On your project's `package.json` file create an object `ust`, its keys will be considered as 'the name of your samples', and the value the sample itself.
 
-      "sat": {
+      "ust": {
         "sampleA": "path\to\file.js",
         "sampleB": path\to\directory
       }
@@ -35,13 +35,13 @@ On your project's `package.json` file create an object `sat`, its keys will be c
 
 To duplicate a sample use:
 
-    sat use [sample] [name]
+    ust use [sample] [name]
 
 You can list all commands from the command line with:
 
-    sat list
+    ust list
 
 ### Planned
 
-    sat create [sample]
-    sat delete [sample]
+    ust create [sample]
+    ust delete [sample]

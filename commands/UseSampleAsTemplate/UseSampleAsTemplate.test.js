@@ -19,12 +19,12 @@ describe('Use Sample As Template', () => {
       .withExactArgs(file, target, match.object)
       .returns(Promise.resolve())
     const pkg = {
-      sat: {
+      ust: {
         [sample]: file
       }
     }
     const Sample = mock().once()
-      .withExactArgs(name, pkg.sat[sample], match.object)
+      .withExactArgs(name, pkg.ust[sample], match.object)
       .returns(Promise.resolve(resultSample))
     const SecureDirectoryService = mock().once()
       .withExactArgs([resultSample], match.object)
@@ -61,12 +61,12 @@ describe('Use Sample As Template', () => {
 
     const DuplicationService = mock().thrice()
     const pkg = {
-      sat: {
+      ust: {
         [sample]: folder
       }
     }
     const Sample = mock().once()
-      .withExactArgs(name, pkg.sat[sample], match.object)
+      .withExactArgs(name, pkg.ust[sample], match.object)
       .returns(Promise.resolve(samples))
     const SecureDirectoryService = mock().once()
       .withExactArgs(samples, match.object)

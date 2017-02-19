@@ -1,6 +1,6 @@
 {
   "name": "GetPackageService",
-  "description": "Gets sat's package.json file",
+  "description": "Gets ust's package.json file",
   "private": true,
   "main": "./GetPackageService.js"
 }

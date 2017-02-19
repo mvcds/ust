@@ -10,6 +10,12 @@ defineSupportCode(function({ After, Then }) {
     fs.access(this.filePath, callback)
   })
 
+  Then('{folder:stringInDoubleQuotes} should have a {file:stringInDoubleQuotes}', function (folder, file, callback) {
+    const filePath = path.join(process.env.PWD, folder, file)
+
+    fs.access(filePath, callback)
+  });
+
   After(function() {
     exec(`rm -fr ${this.filePath}`)
   })

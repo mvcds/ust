@@ -8,8 +8,8 @@ const SampleDirectory = require('./SampleDirectory')
 
 describe('Sample Directory', () => {
   const name = commerce.product()
-  const original = directory()
-  const target = directory()
+  const original = directory('original')
+  const target = directory('target')
   const files = [
     js('file-1'),
     js('file-2'),

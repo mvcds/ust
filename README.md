@@ -10,7 +10,7 @@ Test it by checking the version
 
 You can also install it on the current project, for developers only.
 
-    $ yarn add @marvinc.silva/ust --dev
+    $ yarn add ust --dev
 
 In this case you'll need to refer to the bin folder
 
